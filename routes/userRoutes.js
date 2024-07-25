@@ -3,13 +3,8 @@ const router = express.Router();
 const userController = require('../controllers/userController');
 const authMiddleware = require('../middleware/authMiddleware');
 
-// Login RouteuserController.createListing
-router.post('/login', authMiddleware, userController.login);
-
-// Create User Route - No authMiddleware here
+// User routes
 router.post('/users', userController.createUser);
-
-// Delete User Route - This requires authMiddleware
 router.delete('/users/:id', authMiddleware, userController.deleteUser);
 
 module.exports = router;

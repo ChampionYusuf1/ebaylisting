@@ -16,8 +16,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.post('/createlisting', authMiddleware, upload.single('image'), partController.createListing);
-router.get('/fetchlistings', authMiddleware, partController.fetchListings);
-router.delete('/deletelisting/:id', authMiddleware, partController.deleteListing);
+router.post('/createpart', authMiddleware, upload.single('image'), partController.createPart);
+router.get('/fetchparts', authMiddleware, partController.fetchParts);
+router.delete('/deletepart/:id', authMiddleware, partController.deletePart);
 
 module.exports = router;

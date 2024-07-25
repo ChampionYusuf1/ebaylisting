@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-exports.createListing = async (req, res) => {
+exports.createPart = async (req, res) => {
     const { part_number, price, location, description } = req.body;
     const image = req.file ? req.file.path : null;  // Get the file path from multer
     
@@ -25,7 +25,7 @@ exports.createListing = async (req, res) => {
     }
 };
 
-exports.fetchListings = async (req, res) => {
+exports.fetchParts = async (req, res) => {
     try {
         db.query('SELECT * FROM parts', (err, results) => {
             if (err) {
@@ -40,7 +40,7 @@ exports.fetchListings = async (req, res) => {
     }
 };
 
-exports.deleteListing = async (req, res) => {
+exports.deletePart = async (req, res) => {
     const { id } = req.params;
     try {
         db.query('DELETE FROM parts WHERE id = ?', [id], (err, results) => {
@@ -49,9 +49,9 @@ exports.deleteListing = async (req, res) => {
                 return res.status(500).json({ message: "Database error" });
             }
             if (results.affectedRows === 0) {
-                return res.status(404).json({ message: "Listing not found" });
+                return res.status(404).json({ message: "Part not found" });
             }
-            res.status(200).json({ message: "Listing deleted successfully" });
+            res.status(200).json({ message: "Part deleted successfully" });
         });
     } catch (err) {
         console.error('Server error:', err.message);

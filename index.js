@@ -3,7 +3,9 @@ const fs = require('fs');
 const path = require('path');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const partRoutes = require('./routes/partRoutes'); // Ensure correct path
+const authRoutes = require('./routes/authRoutes'); // Changed to separate authRoutes
+const userRoutes = require('./routes/userRoutes'); // Separate userRoutes
+const partRoutes = require('./routes/partRoutes');
 const db = require('./config/db');
 
 dotenv.config();
@@ -23,7 +25,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Serve static files from uploads
 
 // Use Routes
-app.use('/api', partRoutes); // Ensure correct path
+app.use('/api/auth', authRoutes); // For login
+app.use('/api', partRoutes);
+app.use('/api', userRoutes); // For user management
 
 // Start Server
 const PORT = process.env.PORT || 3000;
